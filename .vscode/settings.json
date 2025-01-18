@@ -4,6 +4,7 @@
     "eslint.codeActionsOnSave.rules": null,
     "cSpell.words": [
         "boilertemplate",
+        "cuid",
         "nestjs",
         "Olatubosun",
         "typeorm",
