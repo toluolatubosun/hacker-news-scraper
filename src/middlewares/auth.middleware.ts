@@ -10,7 +10,7 @@ import CustomError from "@/utilities/custom-error";
  *
  * @param  {any[]} roles List of roles allowed to access the route
  */
-function auth(roles: string[] = []) {
+export default async (roles: string[] = []) => {
     roles = roles.length > 0 ? roles : CONFIGS.APP_ROLES.USER;
 
     return async (req: Request, _res: Response, next: NextFunction) => {
@@ -36,6 +36,4 @@ function auth(roles: string[] = []) {
 
         next();
     };
-}
-
-export default auth;
+};

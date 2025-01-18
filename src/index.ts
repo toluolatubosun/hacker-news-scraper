@@ -9,8 +9,10 @@ import { instrument } from "@socket.io/admin-ui";
 import router from "@/routes";
 import { CONFIGS } from "@/configs";
 import { startCronJobs } from "@/cron-jobs";
+import SocketHandler from "@/services/socket-handler.service";
 import { configureErrorMiddleware } from "@/middlewares/error.middleware";
 import { configurePreRouteMiddleware } from "@/middlewares/pre-route.middleware";
+import socketAuthenticationMiddleware from "./middlewares/socket-auth.middleware";
 
 const app: Express = express();
 const httpServer = createServer(app);
@@ -46,7 +48,13 @@ const PORT: number | string = process.env.PORT || 4000;
 httpServer.listen(PORT, async () => {
     console.log(`::> Server running on PORT: ${PORT}`);
 
+    // Start Cron Jobs
     startCronJobs();
+
+    // Socket IO Auth Middleware
+    io.use(socketAuthenticationMiddleware).on("connection", (socket) => {
+        new SocketHandler(socket).start();
+    });
 });
 
 // On server error
