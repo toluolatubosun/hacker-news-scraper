@@ -69,6 +69,22 @@ class AuthService {
         return { user, tokens };
     }
 
+    async refreshTokens({ body }: Partial<Request>) {
+        const { error, data } = z
+            .object({
+                body: z.object({
+                    refresh_token: z.string().trim()
+                })
+            })
+            .safeParse({ body });
+        if (error) throw new CustomError(extractZodError(error));
+
+        // verify and refresh tokens
+        const refreshedTokens = await TokenService.refreshAuthTokens(data.body.refresh_token);
+
+        return refreshedTokens;
+    }
+
     async logout({ body }: Partial<Request>) {
         const { error, data } = z
             .object({

@@ -8,6 +8,8 @@ router.post("/register", AuthCtrl.register);
 
 router.post("/login", AuthCtrl.login);
 
+router.post("/refresh-tokens", AuthCtrl.refreshTokens);
+
 router.post("/logout", AuthCtrl.logout);
 
 export default router;
