@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import ms from "ms";
 import dotenv from "dotenv";
 import packageInfo from "../../package.json";
 
@@ -26,6 +27,14 @@ const GLOBAL_CONSTANTS = {
     // ============================================================
     APP_NAME: "hacker-news-scraper",
 
+    BCRYPT_SALT_ROUNDS: 10,
+    ACCESS_TOKEN_JWT_EXPIRES_IN: ms("1h"),
+    REFRESH_TOKEN_JWT_EXPIRES_IN: ms("30d"),
+
+    APP_ROLES: {
+        USER: ["USER"]
+    },
+
     HACKER_NEWS: {
         BASE_URL: "https://news.ycombinator.com",
         NEWEST_URL: "https://news.ycombinator.com/newest"
@@ -38,13 +47,15 @@ const CONFIG_BUILDER = {
 
         CORS_ALLOWED_ORIGINS: ["https://admin.socket.io", "http://localhost:3000"],
 
+        JWT_SECRET: "T4u2Rcnne09F.FBr11f0VvERyUiq",
+
         SOCKET_IO: {
             USERNAME: "admin",
             PASSWORD: "password"
         }
 
         // e.g
-        // STRIPE: {
+        // API_SERVICE: {
         //     PUBLIC_KEY: "pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         //     SECRET_KEY: "sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         // },
@@ -55,13 +66,15 @@ const CONFIG_BUILDER = {
 
         CORS_ALLOWED_ORIGINS: ["https://admin.socket.io", "http://hacker-news-scraper.com"],
 
+        JWT_SECRET: process.env.JWT_SECRET!,
+
         SOCKET_IO: {
             USERNAME: process.env.SOCKET_IO_USERNAME!,
             PASSWORD: process.env.SOCKET_IO_PASSWORD!
         }
 
         // e.g
-        // STRIPE: {
+        // API_SERVICE: {
         //     PUBLIC_KEY: "pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         //     SECRET_KEY: "sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         // },

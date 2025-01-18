@@ -6,8 +6,10 @@ import express, { Express } from "express";
 import { Server as SocketIO } from "socket.io";
 import { instrument } from "@socket.io/admin-ui";
 
+import router from "@/routes";
 import { CONFIGS } from "@/configs";
-import { startCronJobs } from "./cron-jobs";
+import { startCronJobs } from "@/cron-jobs";
+import { configureErrorMiddleware } from "@/middlewares/error.middleware";
 import { configurePreRouteMiddleware } from "@/middlewares/pre-route.middleware";
 
 const app: Express = express();
@@ -32,6 +34,11 @@ instrument(io, {
 
 // Pre Route Middlewares
 configurePreRouteMiddleware(app);
+
+app.use(router);
+
+// Error Handler Middleware
+configureErrorMiddleware(app);
 
 const PORT: number | string = process.env.PORT || 4000;
 

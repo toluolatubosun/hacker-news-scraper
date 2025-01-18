@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Hacker News Scraper API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

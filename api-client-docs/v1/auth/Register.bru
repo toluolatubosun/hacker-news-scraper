@@ -1,0 +1,25 @@
+meta {
+  name: Register
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BASE_URL}}/v1/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John",
+    "email": "toluolatubosun+2@gmail.com",
+    "password": "password"
+  }
+}
+
+script:post-response {
+  // Update the access tokens
+  bru.setEnvVar("ACCESS_TOKEN", res.body.data.tokens.access_token);
+  bru.setEnvVar("REFRESH_TOKEN", res.body.data.tokens.refresh_token);
+}

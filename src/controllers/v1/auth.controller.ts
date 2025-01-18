@@ -13,6 +13,11 @@ class AuthController {
         const result = await AuthService.login(req);
         res.status(200).send(response("user login successful", result));
     }
+
+    async logout(req: Request, res: Response) {
+        const result = await AuthService.logout(req);
+        res.status(200).send(response("user logout successful", result));
+    }
 }
 
 export default new AuthController();

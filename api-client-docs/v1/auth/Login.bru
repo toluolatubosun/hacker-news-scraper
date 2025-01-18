@@ -1,0 +1,24 @@
+meta {
+  name: Login
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL}}/v1/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "toluolatubosun+2@gmail.com",
+    "password": "password"
+  }
+}
+
+script:post-response {
+  // Update the access tokens
+  bru.setEnvVar("ACCESS_TOKEN", res.body.data.tokens.access_token);
+  bru.setEnvVar("REFRESH_TOKEN", res.body.data.tokens.refresh_token);
+}

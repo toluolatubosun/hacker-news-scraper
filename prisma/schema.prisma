@@ -14,22 +14,45 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?  @db.VarChar(255)
-  updatedAt DateTime @default(now()) @map("updated_at")
-  createdAt DateTime @default(now()) @map("created_at")
+  id         String    @id @default(cuid())
+  role       UserRoles @default(USER)
+  name       String?   @db.VarChar(255)
+  email      String    @unique
+  password   String    @db.Text
+  updated_at DateTime  @updatedAt
+  created_at DateTime  @default(now())
+  tokens     Token[]
 
   @@map("users")
 }
 
+model Token {
+  id         String     @id @default(cuid())
+  type       TokenTypes
+  token      String     @db.Text
+  userId     String     @map("user_id") @db.VarChar(255)
+  user       User       @relation(fields: [userId], references: [id])
+  updated_at DateTime   @updatedAt
+  created_at DateTime   @default(now())
+
+  @@map("tokens")
+}
+
 model Story {
-  id        Int      @id
-  title     String   @db.VarChar(255)
-  url       String?  @db.Text
-  points    Int      @default(0)
-  author    String   @db.VarChar(255)
-  createdAt DateTime @default(now()) @map("created_at")
+  id         Int      @id
+  url        String?  @db.Text
+  title      String   @db.VarChar(255)
+  points     Int      @default(0)
+  author     String   @db.VarChar(255)
+  created_at DateTime @default(now())
 
   @@map("stories")
+}
+
+enum UserRoles {
+  USER
+}
+
+enum TokenTypes {
+  REFRESH
 }

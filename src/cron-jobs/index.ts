@@ -14,7 +14,7 @@ const scrapeHackerNewJob = cron.schedule(
 );
 
 export const startCronJobs = async () => {
-    scrapeHackerNewJob.start();
+    console.log("::> Starting Cron Jobs");
 
-    console.log("::> Cron Jobs Started");
+    scrapeHackerNewJob.start();
 };
