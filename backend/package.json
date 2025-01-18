@@ -1,5 +1,5 @@
 {
-    "name": "my-node-typescript-express-starter",
+    "name": "hacker-news-scraper",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
