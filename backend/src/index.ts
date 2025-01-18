@@ -1,3 +1,6 @@
+// set timezone
+process.env.TZ = "Africa/Lagos";
+
 import "express-async-errors";
 
 import bcryptjs from "bcryptjs";

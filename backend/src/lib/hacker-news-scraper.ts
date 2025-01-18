@@ -17,7 +17,7 @@ interface ScrapedHackerNewsPage {
     nextPageQueryParameter: string | null;
 }
 
-const scrapeHackerNewsPage = async (pageQueryParameter: string | null): Promise<ScrapedHackerNewsPage> => {
+export const scrapeHackerNewsPage = async (pageQueryParameter: string | null): Promise<ScrapedHackerNewsPage> => {
     try {
         // Fetch the page and load it into cheerio
         const response = await axios.get(`${CONFIGS.HACKER_NEWS.NEWEST_URL}?${pageQueryParameter}`);
@@ -35,8 +35,8 @@ const scrapeHackerNewsPage = async (pageQueryParameter: string | null): Promise<
 
             const points = parseInt(subtext.find(".score").text()) || 0;
             const author = subtext.find(".hnuser").text();
-            const createdAt = new Date(subtext.find(".age").attr("title")?.split(" ")[0] || "");
-
+            const createdAt = new Date(`${subtext.find(".age").attr("title")?.split(" ")[0]}Z` || "");
+            
             stories.push({
                 id,
                 url,
@@ -57,7 +57,7 @@ const scrapeHackerNewsPage = async (pageQueryParameter: string | null): Promise<
     }
 };
 
-const scrapeHackerNews = async () => {
+export const scrapeHackerNews = async () => {
     const MAX_PAGES_TO_SCRAPE = 10;
     console.log(`::> Scraping ${MAX_PAGES_TO_SCRAPE} pages of Hacker News`);
 

@@ -26,8 +26,8 @@ const GLOBAL_CONSTANTS = {
         ACCESS_TOKEN_NAME: "access-token" as const,
         REFRESH_TOKEN_NAME: "refresh-token" as const,
         UNAUTHORIZED_REDIRECT: "/signin" as const,
-        AUTHORIZED_REDIRECT: "/live" as const,
-    },
+        AUTHORIZED_REDIRECT: "/live" as const
+    }
 } as const;
 
 const CONFIG_BUILDER = {
@@ -37,7 +37,8 @@ const CONFIG_BUILDER = {
         URL: {
             API_BASE_URL: "http://localhost:4000",
             PLATFORM_BASE_URL: "http://localhost:3000",
-        },
+            SOCKET_URL: "ws://localhost:4000"
+        }
 
         // e.g
         // STRIPE: {
@@ -51,13 +52,14 @@ const CONFIG_BUILDER = {
         URL: {
             API_BASE_URL: "https://api.example.vercel.app",
             PLATFORM_BASE_URL: "https://example.vercel.app",
-        },
+            SOCKET_URL: "wss://api.example.vercel.app"
+        }
 
         // e.g
         // STRIPE: {
         //     PUBLIC_KEY: "pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         // },
-    },
+    }
 } as const;
 
 // Check if DEPLOYMENT_ENV is valid
