@@ -11,11 +11,6 @@ This is an application that does the following:
   - Refresh a user's token
   - Get Logged in user
 
-
-# Demo
-
-![Hacker News Scraper](./assets/image.png)
-
 # Backend
 
 ## Technologies Used
@@ -89,7 +84,84 @@ The backend server will be running on `http://localhost:4000`.
 
 The API documentation can be found in ./backend/api-client-docs. The documentation was generated using Bruno
 
+# Usage Guide
+
+When working with the API, the websocket connection is protected. To connect to the websocket, you need to provide a valid token. The token can be obtained by logging in or registering a new user.
+
+To register make an HTTP POST request to `http://localhost:4000/v1/auth/register` with the following payload:
+
+```json
+{
+  "name": "New User",
+  "email": "new.user@hackernews.com",
+  "password": "password"
+}
+```
+
+To login make an HTTP POST request to `http://localhost:4000/v1/auth/login` with the following payload:
+
+```json
+{
+  "email": "new.user@hackernews.com",
+  "password": "password"
+}
+```
+
+Both Login and Register Return the same response:
+
+```json
+{
+  "message": "user login successful",
+  "data": {
+    "user": {
+      "id": "cm63vp1fi0000ue3gblxc1afy",
+      "role": "USER",
+      "name": "Default User",
+      "email": "default.user@hackernews.com",
+      "password": "$2a$10$r6ruKLOoCFsPM82BijqAE.XKMskIu8YegoSGA8cfxx5oOQzVMHPDq",
+      "updated_at": "2025-01-19T17:15:39.003Z",
+      "created_at": "2025-01-19T17:15:39.003Z"
+    },
+    "tokens": {
+      "access_token": "eyJhbG...tcM",
+      "refresh_token": "eyJhbG...fWk"
+    }
+  },
+  "success": true
+}
+```
+
+To connect to the websocket, you need to provide the access token when initializing the websocket connection. Here is an example of how to connect to the websocket using Socket.io:
+
+```javascript
+io("ws://localhost:4000", {
+  auth: {
+    authorization: `Bearer {{ACCESS_TOKEN}}`,
+  },
+});
+```
+
+Once the websocket connection is established, a welcome message is emitted along with the number of posts within the last 5 minutes. To listen to this event:
+
+```javascript
+socket.on("connected", (payload) => {
+	console.log("::> Socket connected", payload);
+});
+```
+
+To listen for top 3 most recent stories:
+
+```javascript
+socket.on("top_3_latest_stories", (payload) => {
+  console.log("::> Top 3 latest stories", payload);
+});
+```
+
 # Frontend
+
+Frontend application that implements the backend API to display the latest posts on Hacker News and alert users in real-time when a new post is added.
+
+![Hacker News Scraper](./assets/image.png)
 
 ## Technologies Used
 
