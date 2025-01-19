@@ -12,6 +12,10 @@ This is an application that does the following:
   - Get Logged in user
 
 
+# Demo
+
+![Hacker News Scraper](./assets/image.png)
+
 # Backend
 
 ## Technologies Used
