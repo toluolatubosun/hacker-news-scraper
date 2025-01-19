@@ -9,7 +9,8 @@
         "build": "npx tsc && tsc-alias",
         "prettier": "prettier --write .",
         "lint": "eslint src/**/*.ts",
-        "format": "eslint src/**/*.ts --fix"
+        "format": "eslint src/**/*.ts --fix",
+        "prisma:seed": "ts-node prisma/seed.ts"
     },
     "keywords": [],
     "author": "John Olatubosun <toluolatubosun@gmail.com>",
@@ -19,7 +20,7 @@
         "@types/jsonwebtoken": "^9.0.7",
         "@types/morgan": "^1.9.9",
         "@types/ms": "^2.1.0",
-        "@types/node": "^18.19.22",
+        "@types/node": "^22.10.7",
         "@types/node-cron": "^3.0.11",
         "@typescript-eslint/eslint-plugin": "^5.37.0",
         "@typescript-eslint/parser": "^5.37.0",

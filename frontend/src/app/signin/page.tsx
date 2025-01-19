@@ -26,6 +26,10 @@ const formSchema = z.object({
 function SigninPage() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "default.user@hackernews.com",
+            password: "password",
+        }
     });
 
     const { mutateAsync: login, isPending: isLoggingIn } = useMutation({

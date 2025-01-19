@@ -55,6 +55,20 @@ npx prisma migrate dev
 npx prisma migrate dev --name init
 ```
 
+## Database Content
+
+To fill the database with seed data, run the following command:
+
+```bash
+yarn prisma:seed
+```
+
+In this implementation, it creates a default user with the following credentials, for testing purposes:
+
+- email: `default.user@hackernews.com`
+- password: `password`
+
+
 ## Running the Backend
 
 ```bash
